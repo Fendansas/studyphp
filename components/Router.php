@@ -25,25 +25,36 @@ class Router{
         foreach ($this->routes as $uriPattern => $path) {
             if (preg_match("~$uriPattern~", $uri)) {
 
-                $segments = explode('/', $path);
+                echo '<br> Где ищем запрос который набрал пользователь: '.$uri;
+                echo '<br> Что ищем совпадения из правила: '.$uriPattern;
+                echo '<br> кто обрабатывает: '.$path;
+
+                $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+                echo '<br> нужно сформировать: '.$internalRoute;
+
+                $segments = explode('/', $internalRoute);
 
                 $controllerName = array_shift($segments).'Controller';
                 $controllerName = ucfirst($controllerName);
-                echo '<br> Class: ' . $controllerName;
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
-                echo '<br> Metod: ' .$actionName;
+                echo '<br> contrlller name: '.$controllerName;
+                echo '<br> contrlller name: '.$actionName;
+                $parameters = $segments;
+                echo '<pre>';
+                print_r($parameters);
 
                 //подключаем фаил класса-контроллера
-                $controllerFile = ROOT . '/controllers/' .
+                $controllerFile = ROOT . 'controllers/' .
                     $controllerName . '.php';
                 if (file_exists($controllerFile)) {
                     include_once ($controllerFile);
                 }
                 // создаю обект контроллера и вызываем метод
                 $controllerObject = new $controllerName;
-                $result = $controllerObject->$actionName();
+                $result = call_user_func_array(array($controllerObject, $actionName),$parameters);
+//                $result = $controllerObject->$actionName();
                 if ($result != null){
                     break;
                 }
