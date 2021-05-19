@@ -1,70 +1,74 @@
 <?php
-class Router{
+
+include_once (ROOT.'/controllers/NewsController.php');
+
+class Router
+{
+
     private $routes;
 
     public function __construct()
     {
-        // Путь к файлу с роутами
-        $routesPath = ROOT . '/config/routes.php';
-
-        // Получаем роуты из файла
+        $routesPath = ROOT.'/config/routes.php';
         $this->routes = include($routesPath);
     }
-   //метод возвращает строку
-    private function getURI(){
-        if (!empty($_SERVER['REQUEST_URI'])){
+
+// Return type
+
+    private function getURI()
+    {
+        if (!empty($_SERVER['REQUEST_URI'])) {
             return trim($_SERVER['REQUEST_URI'], '/');
         }
-
     }
 
-    public function run(){
-
+    public function run()
+    {
         $uri = $this->getURI();
 
         foreach ($this->routes as $uriPattern => $path) {
-            if (preg_match("~$uriPattern~", $uri)) {
 
-                echo '<br> Где ищем запрос который набрал пользователь: '.$uri;
-                echo '<br> Что ищем совпадения из правила: '.$uriPattern;
-                echo '<br> кто обрабатывает: '.$path;
+            if(preg_match("~$uriPattern~", $uri)) {
+
+                /*				echo "<br>Где ищем (запрос, который набрал пользователь): ".$uri;
+                                echo "<br>Что ищем (совпадение из правила): ".$uriPattern;
+                                echo "<br>Кто обрабатывает: ".$path; */
+
+                // Получаем внутренний путь из внешнего согласно правилу.
 
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
-                echo '<br> нужно сформировать: '.$internalRoute;
+
+                /*				echo '<br>Нужно сформулировать: '.$internalRoute.'<br>'; */
 
                 $segments = explode('/', $internalRoute);
 
                 $controllerName = array_shift($segments).'Controller';
                 $controllerName = ucfirst($controllerName);
 
-                $actionName = 'action' . ucfirst(array_shift($segments));
 
-                echo '<br> contrlller name: '.$controllerName;
-                echo '<br> contrlller name: '.$actionName;
+                $actionName = 'action'.ucfirst(array_shift($segments));
+
                 $parameters = $segments;
-                echo '<pre>';
-                print_r($parameters);
 
-                //подключаем фаил класса-контроллера
-                $controllerFile = ROOT . 'controllers/' .
-                    $controllerName . '.php';
+
+                $controllerFile = ROOT . '/controllers/' .$controllerName. '.php';
                 if (file_exists($controllerFile)) {
-                    include_once ($controllerFile);
+                    include_once($controllerFile);
                 }
-                // создаю обект контроллера и вызываем метод
-                $controllerObject = new $controllerName;
-                $result = call_user_func_array(array($controllerObject, $actionName),$parameters);
-//                $result = $controllerObject->$actionName();
-                if ($result != null){
+echo $actionName;
+
+               // echo "$controllerName";
+                $controllerObject = new NewsController();
+
+                /*$result = $controllerObject->$actionName($parameters); - OLD VERSION */
+                /*$result = call_user_func(array($controllerObject, $actionName), $parameters);*/
+                $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+
+                if ($result != null) {
                     break;
                 }
             }
 
         }
-
-        //проверяем наличие такого запроса в routes.php
-
-
-
     }
 }
