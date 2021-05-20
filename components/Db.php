@@ -1,14 +1,18 @@
 <?php
-    class Db{
-        public static function getConnection()
-        {
-            $paramsPath = ROOT . '/config/db_params.php';
-            $params = include($paramsPath);
+include_once ROOT.'models/News.php';
+
+class Db
+{
+
+    public static function getConnection()
+    {
+        $paramsPath = ROOT . '/config/db_params.php';
+        $params = include($paramsPath);
 
 
-            $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
-            $db = new PDO($dsn, $params['user'], $params['password']);
+        $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
+        $db = new PDO($dsn, $params['user'], $params['password']);
 
-            return $db;
-        }
+        return $db;
     }
+}
