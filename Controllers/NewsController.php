@@ -19,8 +19,8 @@ include_once ROOT.'/models/News.php';
         public function actionView ($id){
             if ($id) {
                 $newsItem = News::getNewsItemByID($id);
-
-                require_once(ROOT . '/views/news/view.php');
+                print_r($newsItem);
+              //  require_once(ROOT . '/views/news/view.php');
 
 
             }

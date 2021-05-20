@@ -8,14 +8,21 @@
             $id = intval($id);
 
             if ($id) {
+                $host = 'localhost';
+                $dbname = 'mydb';
+                $user = 'root';
+                $password = 'root';
+                $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
-                $db = Db::getConnection();
+                //$db = Db::getConnection();
                 $result = $db->query("SELECT * FROM news WHERE id=" . $id);
 
                 /*$result->setFetchMode(PDO::FETCH_NUM);*/
                 $result->setFetchMode(PDO::FETCH_ASSOC);
 
                 $newsItem = $result->fetch();
+
+                //print_r($newsItem);
 
 
                 return $newsItem;
@@ -70,7 +77,7 @@
 
             return $newsList;
 
-            print_r($newsList);
+
 
         }
     }
