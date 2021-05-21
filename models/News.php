@@ -1,5 +1,4 @@
 <?php
-require 'components/Db.php';
 
 
     class News{
