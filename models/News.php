@@ -1,7 +1,26 @@
 <?php
 
+use mysql_xdevapi\DatabaseObject;
+
+/**
+ * This is the model class for table "{{%news}}".
+ *
+ * @property integer $id
+ * @property string $title
+ * @property DatabaseObject $date
+ * @property string $short_content
+ * @property string $content
+ * @property string $author_name
+ * @property string $preview
+ * @property string $type
+ */
 
     class News{
+
+        /**
+         * @param integer $id
+         * @return mixed $newsItem
+         */
 
         public static function getNewsItemById($id){
             $id = intval($id);
@@ -18,6 +37,9 @@
             }
         }
 
+        /**
+         * @return array $newsList
+         */
         public static function getNewsList(){
             $db = Db::getConnection();
 

@@ -32,9 +32,10 @@ class Router{
                 print_r($segments);
                 echo '<pre>';
                 //-----------
+                //на основании запроса создаю имя класса контроллера для последующего вызова
                 $controllerName = array_shift($segments).'Controller';
                 $controllerName = ucfirst($controllerName);
-
+                //на основании запроса создаю имя метода (функции) контроллера для последующего вызова
                 $actionName = 'action'.ucfirst(array_shift($segments));
                 $parameters = $segments;
                 //-------------------
@@ -50,7 +51,7 @@ class Router{
                     include_once ($controllerFile);
                 }
 
-                //создаю обект класса и вызываю метод
+                //создаю обект класса и вызываю метод на оснвании полученных имен из запроса.
                 $controllerObject = new $controllerName;
                 $result = call_user_func_array(array ($controllerObject, $actionName), $parameters);
                 if ($result !=null){
