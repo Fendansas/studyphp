@@ -21,12 +21,10 @@ use mysql_xdevapi\DatabaseObject;
          * @param integer $id
          * @return mixed $newsItem
          */
-
         public static function getNewsItemById($id){
             $id = intval($id);
 
             if ($id) {
-
                 $db = Db::getConnection();
                 $result = $db->query("SELECT * FROM news WHERE id=" . $id);
 
