@@ -14,13 +14,11 @@ class Router{
         if (!empty($_SERVER['REQUEST_URI'])){
             return trim($_SERVER['REQUEST_URI'], '/');
         }
-
     }
 
     public function run(){
 
         $uri = $this->getURI();
-
 
         //проверяем наличие зароса в routes.php
         foreach ($this->routes as $uriPattern=>$path){
@@ -61,13 +59,6 @@ class Router{
 
             }
         }
-
-
-
-
-//        echo '<br>';
-//
-//        echo 'Class Router, method run';
 
     }
 

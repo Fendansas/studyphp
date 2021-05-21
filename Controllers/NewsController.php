@@ -21,12 +21,7 @@ include_once ROOT.'/models/News.php';
                 $newsItem = News::getNewsItemByID($id);
                 print_r($newsItem);
               //  require_once(ROOT . '/views/news/view.php');
-
-
             }
-
-            return true;
-
 
             return true;
 
