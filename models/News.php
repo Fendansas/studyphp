@@ -61,19 +61,61 @@ use mysql_xdevapi\DatabaseObject;
         }
 
 //              Создаю новую новость
-    public static function setNewNews($title, $short_content, $content, $author_name, $preview, $type)
+    public static function createProduct($options)
     {
         $db = Db::getConnection();
         $result = $db->query('INSERT INTO news (title, short_content, content, author_name, preview, type) VALUES (:title, :short_content, :content, :author_name, :preview, :type)');
-        $result->bindParam(":title", $title);
-        $result->bindParam(":short_content", $short_content);
-        $result->bindParam(":content", $content);
-        $result->bindParam(":author_name", $author_name);
-        $result->bindParam(":preview", $preview);
-        $result->bindParam(":type", $type);
+        $result->bindParam(":title", $options['title'], PDO::PARAM_STR);
+        $result->bindParam(":short_content", $options['short_content'], PDO::PARAM_STR);
+        $result->bindParam(":content", $options['content'], PDO::PARAM_STR);
+        $result->bindParam(":author_name", $options['author_name'], PDO::PARAM_STR);
+        $result->bindParam(":preview", $options['preview'], PDO::PARAM_STR);
+        $result->bindParam(":type", $options['type'], PDO::PARAM_STR);
 
         $result->execute();
     }
+//    /**
+//     * Добавляет новый товар
+//     * @param array $options <p>Массив с информацией о товаре</p>
+//     * @return integer <p>id добавленной в таблицу записи</p>
+//     */
+//    public static function createProduct($options)
+//    {
+//        // Соединение с БД
+//        $db = Db::getConnection();
+//
+//        // Текст запроса к БД
+//        $sql = 'INSERT INTO product '
+//            . '(name, code, price, category_id, brand, availability,'
+//            . 'description, is_new, is_recommended, status)'
+//            . 'VALUES '
+//            . '(:name, :code, :price, :category_id, :brand, :availability,'
+//            . ':description, :is_new, :is_recommended, :status)';
+//
+//        // Получение и возврат результатов. Используется подготовленный запрос
+//        $result = $db->prepare($sql);
+//        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+//        $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
+//        $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
+//        $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
+//        $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+//        $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
+//        $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
+//        $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
+//        $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
+//        $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
+//        if ($result->execute()) {
+//            // Если запрос выполенен успешно, возвращаем id добавленной записи
+//            return $db->lastInsertId();
+//        }
+//        // Иначе возвращаем 0
+//        return 0;
+//    }
+
+
+
+
+
 //загрузка картинки
     public static function uploadImage($image)
     {
