@@ -4,8 +4,8 @@
 
         public function actionList(){
             //------------
-            echo '<br>';
-            echo 'ProductController actionList';
+//            echo '<br>';
+//            echo 'ProductController actionList';
 
             //---------
 

@@ -23,14 +23,14 @@ class Router{
         //проверяем наличие зароса в routes.php
         foreach ($this->routes as $uriPattern=>$path){
             if(preg_match("~$uriPattern~", $uri)){
-                echo '+';
+//                echo '+';
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
                 $segments = explode('/',$internalRoute);
                //----------------
-                echo '<br>';
-                echo '<pre>';
-                print_r($segments);
-                echo '<pre>';
+//                echo '<br>';
+//                echo '<pre>';
+//                print_r($segments);
+//                echo '<pre>';
                 //-----------
                 //на основании запроса создаю имя класса контроллера для последующего вызова
                 $controllerName = array_shift($segments).'Controller';
@@ -39,10 +39,10 @@ class Router{
                 $actionName = 'action'.ucfirst(array_shift($segments));
                 $parameters = $segments;
                 //-------------------
-                echo '<br>';
-                echo 'Class: ' . $controllerName;
-                echo '<br>';
-                echo 'Method: ' . $actionName;
+//                echo '<br>';
+//                echo 'Class: ' . $controllerName;
+//                echo '<br>';
+//                echo 'Method: ' . $actionName;
                 //----------------
 
                 //подключаю фаил класса контроллер и проверяю есть ли такой

@@ -15,15 +15,16 @@ use mysql_xdevapi\DatabaseObject;
  * @property string $type
  */
 
-    class News{
+    class News
+    {
 
         /**
          * @param integer $id
          * @return mixed $newsItem
          */
-        public static function getNewsItemById($id){
+        public static function getNewsItemById($id)
+        {
             $id = intval($id);
-
             if ($id) {
                 $db = Db::getConnection();
                 $result = $db->query("SELECT * FROM news WHERE id=" . $id);
@@ -38,16 +39,14 @@ use mysql_xdevapi\DatabaseObject;
         /**
          * @return array $newsList
          */
-        public static function getNewsList(){
+        public static function getNewsList()
+        {
             $db = Db::getConnection();
-
             $newsList = array();
-
-            $result = $db->query('SELECT id, title, date, short_content FROM news ORDER BY date DESC LIMIT 10');
+            $result = $db->query('SELECT id, title, date, short_content, content FROM news ORDER BY date DESC LIMIT 10');
 
             $i = 0;
-
-            while($row = $result->fetch()) {
+            while ($row = $result->fetch()) {
                 $newsList[$i]['id'] = $row['id'];
                 $newsList[$i]['title'] = $row['title'];
                 $newsList[$i]['date'] = $row['date'];
@@ -56,9 +55,31 @@ use mysql_xdevapi\DatabaseObject;
 //                $newsList[$i]['author_name'] = $row['author_name'];
 //                $newsList[$i]['preview'] = $row['preview'];
 //                $newsList[$i]['type'] = $row['type'];
-
                 $i++;
             }
             return $newsList;
         }
+
+//              Создаю новую новость
+    public static function setNewNews($title, $short_content, $content, $author_name, $preview, $type)
+    {
+        $db = Db::getConnection();
+        $result = $db->query('INSERT INTO news (title, short_content, content, author_name, preview, type) VALUES (:title, :short_content, :content, :author_name, :preview, :type)');
+        $result->bindParam(":title", $title);
+        $result->bindParam(":short_content", $short_content);
+        $result->bindParam(":content", $content);
+        $result->bindParam(":author_name", $author_name);
+        $result->bindParam(":preview", $preview);
+        $result->bindParam(":type", $type);
+
+        $result->execute();
     }
+//загрузка картинки
+    public static function uploadImage($image)
+    {
+        $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
+        $filename = uniqid() . "." . $extension;
+        move_uploaded_file($image['tmp_name'], "uploads/" . $filename);
+        return $filename;
+    }
+}
