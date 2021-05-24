@@ -9,41 +9,77 @@ include_once ROOT.'/models/News.php';
             $newsList = array();
             $newsList = News::getNewsList();
 
-           require_once(ROOT . '/views/news/index.php');
+            require_once(ROOT . '/views/news/index.php');
 //            echo '<pre>';
 //            print_r($newsList);
 //            echo '<pre>';
 //            return true;
         }
 
-        public function actionView ($id){
+        public function actionView($id)
+        {
             if ($id) {
                 $newsItem = News::getNewsItemByID($id);
 //                print_r($newsItem);
-               require_once(ROOT . '/views/news/view.php');
+                require_once(ROOT . '/views/news/view.php');
             }
             return true;
         }
 
-        public function actionCreatnew(){
-            News::setNewNews($_POST['title'],$_POST['short_content'],$_POST['content'],$_POST['author_name'],$_POST['preview'],$_POST['type']);
-            $filename = News::uploadImage($_FILES['image']);
-           addPost($_POST['title'], $_POST['content'], $filename);
-            require_once(ROOT . '/views/news/creatnew.php');
+        public function actionCreate()
+        {
+            echo "hi ";
+
+            if (isset($_POST['submit'])) {
+                echo 'hello ';
+                // Если форма отправлена
+                // Получаем данные из формы
+                var_dump($_POST);
+                $options['title'] = $_POST['title'];
+                $options['short_content'] = $_POST['short_content'];
+                $options['content'] = $_POST['content'];
+                $options['author_name'] = $_POST['author_name'];
+                $options['preview'] = $_POST['preview'];
+                $options['type'] = $_POST['type'];
+
+
+                    // Флаг ошибок в форме
+                    $errors = false;
+
+                    // При необходимости можно валидировать значения нужным образом
+                    if (!isset($options['title']) || empty($options['title'])) {
+                        $errors[] = 'Заполните поля';
+                    }
+
+                    echo 'имя не пустое';
+                    if ($errors == false) {
+                        // Если ошибок нет
+                        // Добавляем новый товар
+
+                        echo 'creteNews ';
+                        $id = News::createNews($options);
+
+                        // Если запись добавлена
+                        if ($id) {
+                            // Проверим, загружалось ли через форму изображение
+                            if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+                                // Если загружалось, переместим его в нужную папке, дадим новое имя
+                                move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/views/images/{$id}.jpg");
+                            }
+                        }
+
+                        // Перенаправляем пользователя на главную
+//                        header("Location: /news");
+                    }
+
+
+
+
+
+            }
+            // Подключаем вид
+            require_once(ROOT . '/views/news/create.php');
+            return true;
+
         }
-        //$title, $short_content, $content, $author_name, $preview, $type
-//    require 'Post.php';
-//    require 'list.php';
-//
-//    $filename = uploadImage($_FILES['image']);
-//    addPost($_POST['title'], $_POST['content'], $filename);
-//
-//    header("Location:/");
-//
-//    var_dump($_POST);
-
-
-
-
-
     }

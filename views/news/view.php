@@ -16,7 +16,7 @@
             <li><a href="#">Blog</a></li>
             <li><a href="#">Photos</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Links</a></li>
+            <li><a href="/create/">Create</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
     </div>
@@ -42,7 +42,7 @@
                         <p class="meta">Posted by <a href="#"><?php echo $newsItem['author_name'];?></a> on <?php echo $newsItem['date'];?>
                             &nbsp;&bull;&nbsp; <a href='/news/' class="permalink"> Back to HomePage</a></p>
                         <div class="entry">
-                            <p><img src="/template/images/MP5A3.png" width="800" height="300" alt="" /></p>
+                            <p><img src="<?php echo News::getImage($newsItem['id']); ?>" width="800" height="300" alt="" /></p>
                             <p><?php echo $newsItem['content'];?></p>
                         </div>
                     </div>
