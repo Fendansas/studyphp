@@ -38,12 +38,12 @@ class Router{
                 //на основании запроса создаю имя метода (функции) контроллера для последующего вызова
                 $actionName = 'action'.ucfirst(array_shift($segments));
                 $parameters = $segments;
-                //-------------------
-//                echo '<br>';
-//                echo 'Class: ' . $controllerName;
-//                echo '<br>';
-//                echo 'Method: ' . $actionName;
-                //----------------
+//                //-------------------
+                echo '<br>';
+                echo 'Class: ' . $controllerName;
+                echo '<br>';
+                echo 'Method: ' . $actionName;
+//                ----------------
 
                 //подключаю фаил класса контроллер и проверяю есть ли такой
                 $controllerFile = ROOT.'/controllers/'.$controllerName.'.php';
@@ -53,6 +53,7 @@ class Router{
 
                 //создаю обект класса и вызываю метод на оснвании полученных имен из запроса.
                 $controllerObject = new $controllerName;
+
                 $result = call_user_func_array(array ($controllerObject, $actionName), $parameters);
                 if ($result !=null){
                     break;

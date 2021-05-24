@@ -68,18 +68,35 @@ include_once ROOT.'/models/News.php';
                             }
                         }
 
-                        // Перенаправляем пользователя на главную
-//                        header("Location: /news");
+                        //Перенаправляем пользователя на главную
+                       header("Location: /news");
                     }
-
-
-
-
 
             }
             // Подключаем вид
             require_once(ROOT . '/views/news/create.php');
             return true;
+        }
 
+
+        /**
+         * Action для страницы "Удалить новость"
+         */
+        public function actionDelete($id)
+        {
+
+            // Обработка формы
+            if (isset($_POST['submit'])) {
+                // Если форма отправлена
+                // Удаляем товар
+                Product::deleteProductById($id);
+
+                // Перенаправляем пользователя на страницу управлениями товарами
+               header("Location: /news");
+            }
+
+            // Подключаем вид
+            require_once(ROOT . '/views/news/delete.php');
+            return true;
         }
     }
