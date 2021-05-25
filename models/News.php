@@ -123,6 +123,35 @@ use mysql_xdevapi\DatabaseObject;
             return $result->execute();
         }
 
+        /**
+         * Редактирует новость с заданным id
+         * @param integer $id <p>id новости</p>
+         * @param array $options <p>Массив с информацей о новости</p>
+         * @return boolean <p>Результат выполнения метода</p>
+         */
+        public static function updateNewsById($id, $options)
+        {
+            // Соединение с БД
+            $db = Db::getConnection();
+
+
+//            title, short_content, content, author_name, preview, type
+            // Получение и возврат результатов. Используется подготовленный запрос
+            $result = $db->prepare('UPDATE news SET title = :title, short_content = :short_content, content = :content, author_name = :author_name, preview = :preview, type = :type WHERE id = :id ');
+            $result->bindParam(':id', $id, PDO::PARAM_INT);
+            $result->bindParam(":title", $options['title'], PDO::PARAM_STR);
+            $result->bindParam(":short_content", $options['short_content'], PDO::PARAM_STR);
+            $result->bindParam(":content", $options['content'], PDO::PARAM_STR);
+            $result->bindParam(":author_name", $options['author_name'], PDO::PARAM_STR);
+            $result->bindParam(":preview", $options['preview'], PDO::PARAM_STR);
+            $result->bindParam(":type", $options['type'], PDO::PARAM_STR);
+            $result->execute();
+
+            return true;
+        }
+
+
+
 
 
 }

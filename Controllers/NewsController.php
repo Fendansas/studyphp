@@ -99,4 +99,49 @@ include_once ROOT.'/models/News.php';
             require_once(ROOT . '/views/news/delete.php');
             return true;
         }
+
+        /**
+         * Action для страницы "Редактировать новости"
+         */
+        public function actionUpdate($id)
+        {
+
+
+
+            // Получаем данные о конкретном заказе
+            $news = News::getNewsItemById($id);
+
+            // Обработка формы
+            if (isset($_POST['submit'])) {
+                // Если форма отправлена
+                // Получаем данные из формы редактирования. При необходимости можно валидировать значения
+                //var_dump($_POST);
+                $options['title'] = $_POST['title'];
+                $options['short_content'] = $_POST['short_content'];
+                $options['content'] = $_POST['content'];
+                $options['author_name'] = $_POST['author_name'];
+                $options['preview'] = $_POST['preview'];
+                $options['type'] = $_POST['type'];
+
+                // Сохраняем изменения
+                if (News::updateNewsById($id, $options)) {
+
+
+                    // Если запись сохранена
+                    // Проверим, загружалось ли через форму изображение
+                    if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+
+                        // Если загружалось, переместим его в нужную папке, дадим новое имя
+                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/views/images/{$id}.jpg");
+                    }
+                }
+
+                // Перенаправляем пользователя на страницу управлениями товарами
+                header("Location: /news");
+            }
+
+            // Подключаем вид
+            require_once(ROOT . '/views/news/update.php');
+            return true;
+        }
     }

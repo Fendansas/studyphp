@@ -12,7 +12,7 @@
 <div id="menu-wrapper">
     <div id="menu">
         <ul>
-            <li class="current_page_item"><a href="#">Homepage</a></li>
+            <li class="current_page_item"><a href="/news">Homepage</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Photos</a></li>
             <li><a href="#">About</a></li>
@@ -44,7 +44,7 @@
                                 &nbsp;&bull;&nbsp; <a href='/news/<?php echo $newsItem['id'] ;?>' class="permalink"> Full article</a></p>
                             <div class="entry">
 
-                                <p><img src="<?php echo News::getImage($newsItem['id']); ?>" width="800" height="300" alt="" /></p>
+                                <p><img src="<?php echo News::getImage($newsItem['id']); ?>" width="=<400"  alt="" /></p>
                                 <p><?php echo $newsItem['short_content'];?></p>
 
                             </div>

@@ -12,7 +12,7 @@
 <div id="menu-wrapper">
     <div id="menu">
         <ul>
-            <li class="current_page_item"><a href="#">Homepage</a></li>
+            <li class="current_page_item"><a href="/news">Homepage</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Photos</a></li>
             <li><a href="#">About</a></li>
@@ -27,8 +27,7 @@
     <div id="header-wrapper">
         <div id="header">
             <div id="logo">
-                <h1><a href="#">Effloresce </a></h1>
-                <p>template Шаблоны для сайта <a href="http://www.ftemplate.ru/">СКАЧАТЬ</a></p>
+                <h1><a href="https://github.com/Fendansas/studyphp">My GitHub </a></h1>
             </div>
         </div>
     </div>
@@ -43,14 +42,15 @@
                         <p class="meta">Posted by <a href="#"><?php echo $newsItem['author_name'];?></a> on <?php echo $newsItem['date'];?>
                             &nbsp;&bull;&nbsp; <a href='/news/' class="permalink"> Back to HomePage</a></p>
                         <div class="entry">
-                            <p><img src="<?php echo News::getImage($newsItem['id']); ?>" width="800" height="300" alt="" /></p>
+                            <p><img src="<?php echo News::getImage($newsItem['id']); ?>" width="=<400"  alt="" /></p>
                             <p><?php echo $newsItem['content'];?></p>
                         </div>
 
-                        <h4>Удалить товар #<?php echo $id; ?></h4>
-                        <a href='/delete/<?php echo $newsItem['id'] ;?>' class="permalink">Удалить товар</a></p>
+                        <h4>Изменить новость #<?php echo $id; ?></h4>
+                        <a href='/update/<?php echo $newsItem['id'] ;?>' class="permalink">Изменить новость</a></p>
 
-
+                        <h4>Удалить новость #<?php echo $id; ?></h4>
+                        <a href='/delete/<?php echo $newsItem['id'] ;?>' class="permalink">Удалить новость</a></p>
 
                     </div>
                     <p><a href='/news/' class="permalink"> Back to HomePage</a></p>

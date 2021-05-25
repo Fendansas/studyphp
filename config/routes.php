@@ -5,6 +5,7 @@
         'news' => 'news/index',
         'create' => 'news/create',
         'delete/([0-9]+)' => 'news/delete/$1',
+        'update/([0-9]+)' => 'news/update/$1'
 //        'products'=>'product/list', //actioIndex in NewsController
 
     );
