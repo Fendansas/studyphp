@@ -8,8 +8,8 @@
 
                 <div class="breadcrumbs">
                     <ol class="breadcrumb">
-                        <li><a href="/admin">Админпанель</a></li>
-                        <li><a href="/admin/product">Управление новостями</a></li>
+                        <li><a href="#">Админпанель</a></li>
+                        <li><a href="#">Управление новостями</a></li>
                         <li class="active">Редактировать новость</li>
                     </ol>
                 </div>
@@ -31,6 +31,7 @@
 
                             <p>Описание</p>
                             <input type="text" name="content" placeholder="" value="<?php echo $news['content']; ?>">
+
 
                             <p>Имя автора</p>
                             <input type="text" name="author_name" placeholder="" value="<?php echo $news['author_name']; ?>">

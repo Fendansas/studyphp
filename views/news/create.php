@@ -7,8 +7,8 @@
 
                 <div class="breadcrumbs">
                     <ol class="breadcrumb">
-                        <li><a href="/admin">Админпанель</a></li>
-                        <li><a href="/admin/product">Управление новостями</a></li>
+                        <li><a href="#">Админпанель</a></li>
+                        <li><a href="#">Управление новостями</a></li>
                         <li class="active">Редактировать новость</li>
                     </ol>
                 </div>
@@ -37,7 +37,9 @@
                             <input type="text" name="short_content" placeholder="" value="">
 
                             <p>Описание</p>
-                            <input type="text" name="content" placeholder="" value="">
+<!--                            <input type="text" name="content" placeholder="" value="">-->
+
+                            <textarea type="text" name="content" placeholder="" value=""></textarea><br>
 
                             <p>Имя автора</p>
                             <input type="text" name="author_name" placeholder="" value="">
