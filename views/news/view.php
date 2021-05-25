@@ -47,6 +47,11 @@
                             <p><?php echo $newsItem['content'];?></p>
                         </div>
 
+                        <h4>Удалить товар #<?php echo $id; ?></h4>
+                        <a href='/delete/<?php echo $newsItem['id'] ;?>' class="permalink">Удалить товар</a></p>
+
+
+
                     </div>
                     <p><a href='/news/' class="permalink"> Back to HomePage</a></p>
                     <div style="clear: both;">&nbsp;</div>

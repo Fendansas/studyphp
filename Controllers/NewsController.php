@@ -89,10 +89,10 @@ include_once ROOT.'/models/News.php';
             if (isset($_POST['submit'])) {
                 // Если форма отправлена
                 // Удаляем товар
-                Product::deleteProductById($id);
+                News::deleteNewsById($id);
 
                 // Перенаправляем пользователя на страницу управлениями товарами
-               header("Location: /news");
+               //header("Location: /news");
             }
 
             // Подключаем вид
