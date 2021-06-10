@@ -1,0 +1,14 @@
+.wrapper{
+    max-widht: 1200;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.review_sasplugin{
+    border:1px solid #F5F5F5;
+    width: 100%;
+}
+.review_sasplugin{
+    text-align: center;
+    margin-bottom: 40px;
+}
